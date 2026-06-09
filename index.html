@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The New York City economy: A data story | Vital City</title>
+<meta name="description" content="How New York City's economy got here, where it's headed, and the forces shaping its future. A Vital City data story.">
+<!-- Vital City typefaces: Halyard (Adobe Typekit) + Gascogne (design-system repo) -->
+<link rel="stylesheet" href="https://use.typekit.net/qqk2vto.css">
+<style>
+@font-face{
+  font-family:'GascogneTS';
+  src:url('https://vital-city-nyc.github.io/vital-city-design-system/fonts/GascogneTS-Light.ttf') format('truetype');
+  font-weight:300;font-style:normal;font-display:swap;
+}
+:root{
+  --vc-black:#111418; --vc-white:#ffffff; --vc-bg:#fbfaf7; --vc-paper:#ffffff;
+  --vc-ink:#1a1d21; --vc-charcoal:#5d5f63; --vc-rule:#e4e2dc; --vc-rule-soft:#eeece6;
+  --vc-orange:#ff7c53; --vc-magenta:#e7466d; --vc-indigo:#394882; --vc-cerulean:#217ebe;
+  --font-sans:'halyard-text','Inter','Helvetica Neue',Arial,sans-serif;
+  --font-serif:'GascogneTS','Source Serif 4',Georgia,'Times New Roman',serif;
+  --max-w:680px; --max-w-chart:860px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-sans);font-weight:300;background:var(--vc-bg);color:var(--vc-ink);line-height:1.65;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;counter-reset:sec;}
+img{max-width:100%;display:block;}
+a{color:var(--vc-cerulean);text-decoration:underline;text-decoration-color:rgba(33,126,190,0.35);text-decoration-thickness:1px;text-underline-offset:3px;transition:color .2s,text-decoration-color .2s;}
+a:hover{color:var(--vc-indigo);text-decoration-color:var(--vc-indigo);}
+
+/* progress bar */
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--vc-orange),var(--vc-magenta));z-index:1000;width:0%;transition:width .1s linear;}
+
+/* section nav */
+.section-nav{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:999;display:flex;flex-direction:column;gap:11px;}
+.section-nav a{width:10px;height:10px;border-radius:50%;background:rgba(17,20,24,0.15);border:1px solid rgba(17,20,24,0.25);display:block;transition:all .3s;position:relative;}
+.section-nav a.active{background:var(--vc-orange);border-color:var(--vc-orange);transform:scale(1.35);}
+.section-nav a .tooltip{position:absolute;right:20px;top:50%;transform:translateY(-50%);background:var(--vc-ink);color:#fff;font-family:var(--font-sans);font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;}
+.section-nav a:hover .tooltip{opacity:1;}
+@media(max-width:900px){.section-nav{display:none;}}
+
+/* hero */
+.hero{position:relative;min-height:92vh;display:flex;flex-direction:column;justify-content:center;padding:90px 32px 70px;background:linear-gradient(180deg,#fffdf8 0%,var(--vc-bg) 100%);border-bottom:1px solid var(--vc-rule);overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-25%;right:-10%;width:560px;height:560px;background:radial-gradient(ellipse,rgba(255,124,83,0.10) 0%,transparent 70%);pointer-events:none;}
+.hero::after{content:'';position:absolute;bottom:-30%;left:-12%;width:520px;height:520px;background:radial-gradient(ellipse,rgba(57,72,130,0.08) 0%,transparent 70%);pointer-events:none;}
+/* faint abstract market-index line — a data motif, not imagery */
+.hero-motif{position:absolute;left:0;right:0;bottom:0;width:100%;height:64%;z-index:0;pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 42%);
+  mask-image:linear-gradient(180deg,transparent 0%,#000 42%);}
+.hero-inner{max-width:var(--max-w-chart);margin:0 auto;width:100%;position:relative;z-index:1;}
+.hero-kicker{font-family:var(--font-sans);font-size:12px;letter-spacing:3.5px;text-transform:uppercase;color:var(--vc-orange);font-weight:700;margin-bottom:30px;}
+.hero-kicker span{color:var(--vc-charcoal);font-weight:700;}
+.hero h1{font-family:var(--font-sans);font-weight:900;font-size:clamp(42px,7.4vw,86px);line-height:1.0;letter-spacing:-0.038em;color:var(--vc-black);margin-bottom:24px;max-width:15ch;text-wrap:balance;}
+.hero-sub{font-family:var(--font-serif);font-weight:300;font-size:clamp(22px,2.7vw,32px);color:var(--vc-charcoal);letter-spacing:.01em;padding-top:22px;border-top:1px solid var(--vc-rule);display:inline-block;}
+.hero-byline{margin-top:40px;font-family:var(--font-sans);font-size:13px;line-height:1.6;color:var(--vc-charcoal);max-width:60ch;}
+.hero-byline strong{color:var(--vc-ink);font-weight:700;}
+.scroll-cue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;color:var(--vc-charcoal);font-family:var(--font-sans);font-size:10px;letter-spacing:3px;text-transform:uppercase;animation:bob 2s ease-in-out infinite;}
+.scroll-cue svg{width:20px;height:20px;stroke:var(--vc-orange);}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(6px);}}
+
+/* sections */
+.section{padding:88px 32px;border-bottom:1px solid var(--vc-rule-soft);counter-increment:sec;}
+.section:nth-child(even){background:var(--vc-paper);}
+.wrap{max-width:var(--max-w);margin:0 auto;}
+.section-title{font-family:var(--font-serif);font-weight:300;font-size:clamp(32px,4.6vw,50px);line-height:1.08;letter-spacing:0;color:var(--vc-black);margin:0 0 40px;max-width:20ch;text-wrap:balance;}
+.section-title::before{
+  content:counter(sec,decimal-leading-zero);
+  display:block;font-family:var(--font-serif);font-weight:300;
+  font-size:clamp(40px,6vw,64px);line-height:1;color:var(--vc-orange);
+  margin-bottom:14px;letter-spacing:-0.01em;
+}
+.prose{font-size:19px;line-height:1.78;color:var(--vc-ink);margin:0 0 26px;max-width:64ch;}
+.prose:last-child{margin-bottom:0;}
+/* lede on the opening paragraph */
+#overview .prose:first-of-type{font-size:22px;line-height:1.7;color:var(--vc-black);}
+/* bold closing statement (same size as body) */
+#future .prose:last-of-type{font-weight:700;color:var(--vc-black);}
+
+/* charts */
+.chart{max-width:var(--max-w-chart);margin:48px auto 52px;background:var(--vc-white);border:1px solid var(--vc-rule);border-radius:2px;padding:22px;box-shadow:0 1px 2px rgba(17,20,24,0.04),0 10px 30px rgba(17,20,24,0.05);transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s cubic-bezier(.22,1,.36,1);}
+.chart:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(17,20,24,0.05),0 18px 44px rgba(17,20,24,0.09);}
+.chart .flourish-embed{margin:0;}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* footer */
+footer{padding:60px 32px 80px;text-align:center;background:var(--vc-ink);color:#cfd1d6;}
+.footer-wrap{max-width:var(--max-w);margin:0 auto;}
+.footer-mark{font-family:var(--font-sans);font-weight:700;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--vc-orange);margin-bottom:18px;}
+.footer-credit{font-family:var(--font-sans);font-weight:300;font-size:15px;line-height:1.7;color:#cfd1d6;}
+.footer-credit a{color:#fff;border-bottom-color:rgba(255,255,255,0.4);}
+.footer-credit a:hover{color:var(--vc-orange);border-bottom-color:var(--vc-orange);}
+
+@media(max-width:600px){
+  .section{padding:54px 22px;}
+  .hero{padding:80px 22px 60px;}
+  .prose{font-size:18px;}
+  .chart{padding:12px;}
+}
+
+/* ---- embed mode (?embed=1) for Ghost ---- */
+body.embed .progress-bar,
+body.embed .section-nav,
+body.embed .scroll-cue{display:none;}
+body.embed .hero{min-height:auto;padding-top:54px;padding-bottom:48px;}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="section-nav">
+  <a href="#top"><span class="tooltip">Top</span></a>
+  <a href="#overview"><span class="tooltip">Overview</span></a>
+  <a href="#divided"><span class="tooltip">A divided city</span></a>
+  <a href="#price"><span class="tooltip">Price & potential</span></a>
+  <a href="#ledger"><span class="tooltip">The public ledger</span></a>
+  <a href="#future"><span class="tooltip">The future</span></a>
+</nav>
+
+<header class="hero" id="top">
+  <svg class="hero-motif" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="motif-area" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ff7c53" stop-opacity="0.12"/>
+        <stop offset="100%" stop-color="#ff7c53" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <g stroke="#394882" stroke-opacity="0.06" stroke-width="1">
+      <line x1="0" y1="140" x2="1200" y2="140"/><line x1="0" y1="220" x2="1200" y2="220"/><line x1="0" y1="300" x2="1200" y2="300"/>
+      <line x1="200" y1="80" x2="200" y2="400"/><line x1="400" y1="80" x2="400" y2="400"/><line x1="600" y1="80" x2="600" y2="400"/><line x1="800" y1="80" x2="800" y2="400"/><line x1="1000" y1="80" x2="1000" y2="400"/>
+    </g>
+    <path d="M0,312 L60,300 L120,322 L180,288 L240,300 L300,262 L360,280 L420,242 L480,258 L540,212 L600,234 L660,196 L720,210 L780,168 L840,188 L900,150 L960,172 L1020,128 L1080,150 L1140,108 L1200,126 L1200,400 L0,400 Z" fill="url(#motif-area)"/>
+    <path d="M0,312 L60,300 L120,322 L180,288 L240,300 L300,262 L360,280 L420,242 L480,258 L540,212 L600,234 L660,196 L720,210 L780,168 L840,188 L900,150 L960,172 L1020,128 L1080,150 L1140,108 L1200,126" fill="none" stroke="#ff7c53" stroke-opacity="0.30" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+  <div class="hero-inner">
+    <div class="hero-kicker">Vital City</div>
+    <h1 class="reveal">The New York City economy</h1>
+    <p class="hero-sub reveal">A data story</p>
+  </div>
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</header>
+
+<section class="section" id="overview">
+  <div class="wrap">
+    <h2 class="section-title reveal">Overview</h2>
+    <p class="prose reveal">New York has one of the largest economies on earth — one that's <a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.PP.CD" target="_blank" rel="noopener">bigger than most countries</a>, and one that Mayor Zohran Mamdani, a proud democratic socialist, sets out to reshape.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29178097?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29178097/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+    <p class="prose reveal">How did it get here — and where is it headed, given the new mayor's plans to tax the wealthy, expand social services and <a href="https://www.nytimes.com/2026/05/29/nyregion/mamdani-edc-economy-nyc.html" target="_blank" rel="noopener">reorient development around "economic justice"</a>?</p>
+    <p class="prose reveal">The second question is hard if not impossible to answer; the first is just a long story.</p>
+    <p class="prose reveal">The Dutch built a fur-trading post at a great harbor; the British made it the country's busiest port; the 19th century layered on garment factories, sugar refineries, printing and shipbuilding. By 1850, <a href="https://www.census.gov/programs-surveys/economic-census.html" target="_blank" rel="noopener">no county in America employed more manufacturing workers.</a> But as manufacturing declined after World War II, the city nearly broke, then remade itself around finance, real estate, health care, education, tourism and professional services. The question now is whether that service economy is entering another transition — this time shaped by remote work, digital commerce and artificial intelligence.</p>
+    <p class="prose reveal">Today's largely service economy — heavily built on finance, health care, creative industries and knowledge work — is the latest reinvention.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-timeline" data-src="visualisation/29178334?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29178334/thumbnail" width="100%" alt="timeline visualization" /></noscript></div></div>
+  </div>
+</section>
+<section class="section" id="divided">
+  <div class="wrap">
+    <h2 class="section-title reveal">A city ever-changing, and deeply split</h2>
+    <p class="prose reveal">Many would say that an economy this size should be able to lift everyone in it. But in America's largest city and its capital of finance, inequality looks like both a feature and a bug.</p>
+    <p class="prose reveal">The city's population growth or shrinkage has largely tracked its fortunes over time. Reaching nearly 7.9 million residents by 1950, it <a href="https://www.census.gov/programs-surveys/popest.html" target="_blank" rel="noopener">shed more than 800,000 residents</a> to suburban flight and fiscal crisis in the 1970s, bottoming out around 1980 before rising again hitting 8.8 million in the 2020 census and then falling somewhat to today's 8.58 million. Post-pandemic decline is real, but by historical standards, the population size remains healthy.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29178697?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29178697/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+    <p class="prose reveal">Who those people are has changed even more.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29179141?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29179141/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+    <p class="prose reveal">Immigration has long been one of New York's recurring engines. The flow has risen and fallen over time, and may now be slowing again. But immigrants remain central to the city's economy: the foreign-born are a larger share of the workforce and of small-business owners than of the population — the people who staff the kitchens, build the towers and raise the storefront gates. Metro-area immigrants pay an estimated <a href="https://www.americanimmigrationcouncil.org/topic/tax-contributions/" target="_blank" rel="noopener">$103 billion a year in state, federal and local taxes</a>.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29179289?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29179289/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+    <p class="prose reveal">Official statistics miss the large share of these workers who are undocumented. Much of the city's street vending, domestic work, off-the-books construction and unlicensed childcare happens off the books.</p>
+    <p class="prose reveal">The most reliable sources estimate that <a href="https://cmsny.org/publications/state-and-local-data-on-undocumented-immigrants/" target="_blank" rel="noopener">between roughly 412,000 and 535,000 city residents</a> are undocumented. Most pay taxes in some form, and many pay income and payroll taxes through wage withholding — an <a href="https://itep.org/undocumented-immigrants-taxes-2024/" target="_blank" rel="noopener">estimated $3.1 billion in state and local taxes in 2022</a>. But they are not eligible for benefits such as Social Security, federal food assistance or Medicare.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29179603?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29179603/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+    <p class="prose reveal">Since President Trump took office in January 2026, ushering in a massive focus on immigration enforcement, net international migration nationwide has fallen by more than half, from 2.7 million in 2024 to 1.3 million in 2025, with the <a href="https://www.census.gov/newsroom/blogs/random-samplings/2026/01/historic-decline-in-net-international-migration.html" target="_blank" rel="noopener">Census Bureau</a> projecting a further decline to about 321,000 in 2026.</p>
+    <p class="prose reveal">In New York City, <a href="https://s-media.nyc.gov/agencies/dcp/assets/files/pdf/data-tools/population/population-estimates/new-york-city-population-estimates-and-trends-march-2026.pdf" target="_blank" rel="noopener">estimates suggest</a> net international migration to New York City fell by about 70%, from roughly 220,000 in 2023–24 to about 66,000 in 2024–25. Those actions may already be the impetus behind the declining tourism numbers in the city. But they could have longer-lasting effects in a city in which an immigrant workforce is so important to the functioning of its economy.</p>
+    <p class="prose reveal">New York City's workforce is distinctive also in being both more and less educated than the nation — with a <a href="https://data.census.gov/" target="_blank" rel="noopener">larger share of residents with graduate degrees</a>, and a larger share who never finished high school.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29179699?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29179699/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+    <p class="prose reveal">That helps explain why New York City's unemployment rate has often <a href="https://fred.stlouisfed.org/series/UNRATE" target="_blank" rel="noopener">exceeded the national rate </a>— and why the pandemic made the gap worse. The city's unemployment rate spiked higher than the country's, recovered more slowly, and remains above the national average.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29179785?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29179785/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+    <p class="prose reveal">New York is often described as two cities: one rich, one poor. That divide is visible in income, with some of the nation's wealthiest and poorest communities existing within the same city. But inequality also shows up in who has access to work: unemployment in the Bronx runs about 50% <a href="https://dol.ny.gov/labor-statistics" target="_blank" rel="noopener">higher than on Staten Islan</a>d, is more than <a href="https://data.census.gov/table?q=S2301&amp;g=160XX00US3651000" target="_blank" rel="noopener">twice as high for Black New Yorkers as for white New Yorkers</a>, and is highest among workers without a bachelor's degree.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29179964?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29179964/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+    <p class="prose reveal"><a href="https://www.osc.ny.gov/reports" target="_blank" rel="noopener">Youth unemployment is more than double the citywide rate</a>, and some <a href="https://measureofamerica.org/disconnected-youth/" target="_blank" rel="noopener">122,000 New Yorkers between 16 and 24</a> are neither working nor in school — a cohort starting adult life behind.</p>
+    <p class="prose reveal">On the other side is a well-to-do professional class — doctors, lawyers, executives, business owners and financiers — that has long powered the city's output and funded its government.</p>
+    <p class="prose reveal">Finance remains the clearest example, accounting for about <a href="https://www.osc.ny.gov/reports" target="_blank" rel="noopener">1 in 20 private-sector jobs </a>but nearly a quarter of all wages and close to a fifth of city tax revenue. But the broader point is the city's dependence on high earners: filers making $1 million or more are less than 1% of full-year resident filers, yet account for 37.6% of personal income tax liability, or an estimated 8.6% of all city tax revenue. That concentration is both a fiscal blessing and a vulnerability.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29254336?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29254336/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+    <p class="prose reveal">All this frames the fight, reanimated under Mamdani, over taxing the rich: if rates rise, do high earners leave? The evidence is mixed.</p>
+    <p class="prose reveal">Raising taxes has not caused a wealthy exodus before. New York has raised top rates several times since 2009, including a 2021 millionaire tax that now brings in about $3.6 billion a year. So far,<a href="https://fiscalpolicy.org/migration" target="_blank" rel="noopener"> the evidence does not show a flight of the wealthy</a>: high earners' out-migration rates after the hike matched pre-pandemic norms, and the top 1% still leave at roughly a quarter the rate of everyone else. Recent out-migration has been concentrated more among lower- and middle-income New Yorkers.</p>
+    <p class="prose reveal">That fits the broader evidence. <a href="https://journals.sagepub.com/doi/10.1177/0003122416639625" target="_blank" rel="noopener">A study of 45 million U.S. tax returns</a> found that millionaires moved between states slightly less often than everyone else — 2.4% a year versus 2.9% — and rarely moved to lower-tax states. Wealth often ties people down through businesses, family, property and social networks.</p>
+    <p class="prose reveal">But taxes are not irrelevant. <a href="https://www.nber.org/papers/w26349" target="_blank" rel="noopener">Among some top-earning scientists, investors and founders</a>, taxes do shift behavior. After California raised its top rate in 2012, <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20150508" target="_blank" rel="noopener">an extra 0.8% of top-bracket filers left in the first year</a>. That was not an exodus, but it was real.</p>
+    <p class="prose reveal">The harder question is whether New York is approaching a limit. Past tax increases did not trigger mass flight, but that does not mean every future increase is costless — especially if the city's advantages begin to feel less worth the price.</p>
+  </div>
+</section>
+<section class="section" id="price">
+  <div class="wrap">
+    <h2 class="section-title reveal">The price and potential of New York</h2>
+    <p class="prose reveal">What does it all add up to? For one, a city that's less affordable than it could otherwise be precisely because it's in demand for a wide range of families and workers. Almost by definition, the more desirable a place New York City is, the more people who want to live and stay here, the pricier the city will become. That makes Mamdani's commitment to make the city more affordable tricky indeed.</p>
+    <p class="prose reveal">But affordability isn't a single number; it varies dramatically within the city, and is deeply related to incomes.</p>
+    <p class="prose reveal">The post-2019 period has been unusually favorable to New York City's highest earners. <a href="https://www.centernyc.org/reports-briefs/while-the-top-three-percent-of-wage-earners-get-richer-new-york-citys-low-wage-workers-risk-greater-poverty" target="_blank" rel="noopener">According to The New School's Center for New York City Affairs</a>, from 1996 to 2019, real wage growth was modest across the distribution, including at the top. But from 2019 to 2024, the pattern changed: Wage growth slowed for low- and middle-wage workers while surging for the top 3%, whose real wages grew at an annualized rate of 6.1%, three times faster than that of the low and middle classes. In other words, the pandemic-era economy sharply widened the gap between the very highest earners and everyone else.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29180533?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29180533/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+    <p class="prose reveal">The typical worker's <a href="https://comptroller.nyc.gov/wp-content/uploads/2025/05/The-State-of-Job-Quality-in-NYC.pdf" target="_blank" rel="noopener">real median wage of about $24 an hour in 2017</a> had barely recovered to $27 by 2023, still short of the prepandemic peak.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29180821?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29180821/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+    <p class="prose reveal">Among full-time workers, the largest group <a href="https://data.census.gov/" target="_blank" rel="noopener">earns more than $100,000 a year</a> — and nearly as many earn less than $50,000. But they share many of the same rising costs.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29180927?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29180927/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+    <p class="prose reveal">By some headline numbers the city is booming — a <a href="https://www.osc.ny.gov/press/releases/2026/03/dinapoli-246900-average-bonus-on-wall-street-up-6-percent-in-2025" target="_blank" rel="noopener">$49 billion Wall Street bonus pool</a>, the <a href="https://www.crainsnewyork.com/real-estate/manhattan-office-market-enjoys-strong-2025-colliers-report-says" target="_blank" rel="noopener">strongest year for Manhattan office leasing since 2014</a>, <a href="https://www.business.nyctourism.com/press-media/press-releases/NYC-Tourism-Annual-Report-March-2026" target="_blank" rel="noopener">65 million visitors</a>. By others, the strain is everywhere: a <a href="https://www.robinhood.org/news/2026-annual-poverty-tracker-report-release/" target="_blank" rel="noopener">record 1 in 4 residents in poverty</a>, <a href="https://www.osc.ny.gov/reports/budget/fed-funding-ny/nutritional-assistance" target="_blank" rel="noopener">1.8 million people on food assistance</a>, <a href="https://www.coalitionforthehomeless.org/facts-about-homelessness/" target="_blank" rel="noopener">91,000 sleeping in shelters</a> each night.</p>
+    <p class="prose reveal"><a href="https://equity.nyc.gov/domains/housing/severely-rent-burdened-households" target="_blank" rel="noopener">One in 4 New York City renters now pay more than half their pre-tax income in rent</a> — a squeeze that sits at the center of the affordability crisis. (There are reasonable questions about what the "right" proportion of one's income should be spent on housing, especially as the price of many goods and services shift over time.)</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29221253?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29221253/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+    <p class="prose reveal">The affordability pressure facing workers is sharpened by an extremely tight rental market. In 2023, vacancy rates were below 1% in several lower-rent bands, while the overall rental vacancy rate was only 1.41%.</p>
+    <p class="prose reveal">The picture is starkly different on the commercial side. New York City's storefront vacancy rate stands at 11%, slightly higher than before the pandemic, but the citywide figure masks sharp local divides. The hardest-hit areas include both Manhattan commercial districts and outer-borough neighborhoods, with New York City showing the widest neighborhood gap among the country's nine largest metropolitan areas, according to a <a href="https://comptroller.nyc.gov/reports/whos-minding-the-storefronts/#_ftn3" target="_blank" rel="noopener">new analysis by the Comptroller's Office</a>. In many neighborhoods, 80% to 90% of vacant storefronts have sat empty for at least nine months.</p>
+    <p class="prose reveal">None of this is accidental; it is an outgrowth of how New York — and much of the U.S. economy — is now built. Over 70 years the city traded a deep, middle-wage manufacturing base for a barbell: high-wage finance and professional work at one end, low-paid care and food work at the other, a thinning middle between.</p>
+    <p class="prose reveal">New York City's economy looks fundamentally different today than it did a generation ago. <a href="https://www.newyorkfed.org/medialibrary/media/research/epr/97v03n1/9702moss.pdf" target="_blank" rel="noopener">At its post-war peak in 1950, the city had nearly 1 million manufacturing jobs</a>: almost one in three workers made things for a living. By 1990, that figure had fallen to roughly 200,000. Today it's about 53,000.</p>
+    <p class="prose reveal">In place of that industrial base, the city has built a service economy concentrated in health care and professional work. Health care and social assistance employment, the city's single biggest sector, has grown from 402,000 in 1990 to more than 1 million today, while professional and business services have added more than 250,000 jobs over the same period. Government — about <a href="https://comptroller.nyc.gov/newsroom/" target="_blank" rel="noopener">619,000 jobs as of January 2026</a> — is counted separately.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29205763?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29205763/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+    <p class="prose reveal">There are positive signs too. New York City's business-formation pipeline remains well above its pre-pandemic level: the five boroughs recorded about 158,000 business applications in 2024, up from about 130,000 in 2019. These are not all new storefronts or job-creating firms — many are likely small or one-person ventures — but they show that entrepreneurial activity remains elevated. And the rebound is not just Manhattan-driven: applications rose 12% in Manhattan, compared with 34% in the Bronx, 27% in Queens, 25% in Brooklyn and 34% on Staten Island.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29221397?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29221397/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+  </div>
+</section>
+<section class="section" id="ledger">
+  <div class="wrap">
+    <h2 class="section-title reveal">The public ledger</h2>
+    <p class="prose reveal">What can and should government — itself the city's largest employer — do about a city economy that remains powerful but increasingly strained? Costs are rising, inequality is deep, the tax base depends heavily on high earners, and the business landscape is sending mixed signals: elevated applications, but persistent empty storefronts. Should government invest more deeply in the public sector, focus on getting out of the way to prime the pump of growth, or is that a false choice?</p>
+    <p class="prose reveal">New York is already a high-tax city with a big government, funding a costly school system and a sprawling safety net — mainly from property and income taxes and state and federal aid.</p>
+    <p class="prose reveal">Families and businesses know New York is expensive. They come anyway because the city offers something worth the price: talent, opportunity, culture, networks and proximity to others drawn by the same promise.</p>
+    <p class="prose reveal">Will they stay if the tax burden grows but services and quality of life don't?</p>
+    <p class="prose reveal">The fiscal year 2027 Executive Budget Mamdani released in May 2026 runs about <a href="https://www.nyc.gov/mayors-office/news/2026/05/mayor-zohran-mamdani-releases--124-7-billion-executive-budget-fo" target="_blank" rel="noopener">$124.7 billion a year</a> — balanced, as the law requires, closing a roughly $12 billion gap.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29206216?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29206216/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+  </div>
+</section>
+<section class="section" id="future">
+  <div class="wrap">
+    <h2 class="section-title reveal">The future is anybody's guess</h2>
+    <p class="prose reveal">Hanging over what comes next for government, businesses and families are two enormous letters: AI.</p>
+    <p class="prose reveal">Even as the economy regains its footing in the wake of the pandemic, even as it struggles to adjust to major policy changes from Trump's Washington and Mamdani's City Hall, artificial intelligence threatens the high-wage, white-collar work that anchors the tax base.</p>
+    <p class="prose reveal">The occupations <a href="https://arxiv.org/abs/2303.10130" target="_blank" rel="noopener">most exposed to today's models</a> — law, finance, accounting, software and writing — are among the best paid, while many lower-paid service jobs are less exposed. In New York, AI could therefore threaten not just middle-income work, but parts of the high-wage professional economy on which the city depends.</p>
+    <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29206897?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29206897/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
+    <p class="prose reveal">Mayor Mamdani will not decide the city's economic future alone; Albany, Washington and the broader economy will matter more. But City Hall still shapes the bargain through budgets, regulation, land use, services and tone. Mamdani <a href="https://www.cnn.com/2025/12/30/politics/zohran-mamdani-nyc-mayor-policy-proposals" target="_blank" rel="noopener">has framed those choices around "economic justice"</a>: affordability for those under the most strain, rather than growth for its own sake.</p>
+    <p class="prose reveal">His agenda means to take direct aim at the squeeze: <a href="https://www.cnn.com/2025/12/30/politics/zohran-mamdani-nyc-mayor-policy-proposals" target="_blank" rel="noopener">universal childcare, fare-free buses, a rent freeze on stabilized apartments</a>, a higher minimum wage and <a href="https://prospect.org/2026/05/12/mamdani-announces-balanced-budget-without-cuts/" target="_blank" rel="noopener">city-run grocery stores</a>. Whether those tools narrow the divide — or whether higher taxes and a bigger budget drag on the city's dynamism — is what the coming years will decide.</p>
+    <p class="prose reveal">New York's economy is huge and durable. It survived the loss of its factories and rebuilt itself around finance, services and care. The city has remade itself before. Growth and growing pains are givens. Progress is not.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-wrap">
+    <p class="footer-credit">Ron Miller, adjunct assistant professor of public service at NYU Wagner (Ph.D., Princeton), helped Vital City produce this data story.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  // embed mode
+  if(new URLSearchParams(location.search).get('embed')==='1'){
+    document.body.classList.add('embed');
+    var postHeight=function(){
+      var h=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);
+      parent.postMessage({type:'vc-embed-height',id:'nyc-economy-data-story',height:h},'*');
+    };
+    window.addEventListener('load',postHeight);
+    window.addEventListener('resize',postHeight);
+    var n=0,t=setInterval(function(){postHeight();if(++n>30)clearInterval(t);},400);
+  }
+
+  // scroll reveal
+  var revealObserver=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');revealObserver.unobserve(e.target);}});
+  },{threshold:0.05,rootMargin:'40px 0px -20px 0px'});
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    document.querySelectorAll('.reveal').forEach(function(el){
+      var r=el.getBoundingClientRect();
+      if(r.top<window.innerHeight&&r.bottom>0){el.classList.add('visible');}
+      else{revealObserver.observe(el);}
+    });
+  });});
+
+  // progress bar
+  var bar=document.getElementById('progressBar');
+  window.addEventListener('scroll',function(){
+    var st=window.scrollY,dh=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(dh>0?(st/dh*100):0)+'%';
+  },{passive:true});
+
+  // section nav
+  var navLinks=document.querySelectorAll('.section-nav a');
+  var secObserver=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        navLinks.forEach(function(l){l.classList.remove('active');});
+        var a=document.querySelector('.section-nav a[href="#'+e.target.id+'"]');
+        if(a)a.classList.add('active');
+      }
+    });
+  },{rootMargin:'-45% 0px -45% 0px',threshold:0});
+  document.querySelectorAll('header[id],section[id]').forEach(function(s){if(s.id)secObserver.observe(s);});
+})();
+</script>
+</body>
+</html>
