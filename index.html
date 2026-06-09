@@ -80,6 +80,9 @@ a:hover{color:var(--vc-indigo);text-decoration-color:var(--vc-indigo);}
 .chart{max-width:var(--max-w-chart);margin:48px auto 52px;background:var(--vc-white);border:1px solid var(--vc-rule);border-radius:2px;padding:22px;box-shadow:0 1px 2px rgba(17,20,24,0.04),0 10px 30px rgba(17,20,24,0.05);transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s cubic-bezier(.22,1,.36,1);}
 .chart:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(17,20,24,0.05),0 18px 44px rgba(17,20,24,0.09);}
 .chart .flourish-embed{margin:0;}
+/* wide breakout for the fixed-canvas SVG stat panels, so their text isn't shrunk to fit the text column.
+   Centered with margins (not transform) so it doesn't fight the .reveal animation's transform. */
+.chart-wide{max-width:none;width:min(1080px,calc(100vw - 48px));margin-left:calc(50% - min(1080px,calc(100vw - 48px)) / 2);margin-right:0;}
 
 /* reveal */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
@@ -169,7 +172,7 @@ body.embed .hero{min-height:auto;padding-top:54px;padding-bottom:48px;}
     <p class="prose reveal">Immigration has long been one of New York's recurring engines. The flow has risen and fallen over time, and may now be slowing again. But immigrants remain central to the city's economy: the foreign-born are a larger share of the workforce and of small-business owners than of the population — the people who staff the kitchens, build the towers and raise the storefront gates. Metro-area immigrants pay an estimated <a href="https://www.americanimmigrationcouncil.org/topic/tax-contributions/" target="_blank" rel="noopener">$103 billion a year in state, federal and local taxes</a>.</p>
     <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29179289?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29179289/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
     <p class="prose reveal">Official statistics miss the large share of these workers who are undocumented. Much of the city's street vending, domestic work, off-the-books construction and unlicensed childcare happens off the books.</p>
-    <div class="chart reveal">
+    <div class="chart reveal chart-wide">
       <div style="max-width: 1100px; margin: 0 auto;">
 <svg width="100%" viewBox="0 0 1100 410" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The informal economy in four numbers: 750,000 informal workers, 40 billion dollars in off-the-books output per year, 19,000 vendor applications backlogged, 30 percent of small construction done off-permit." style="font-family: 'halyard-text', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: block;">
 
@@ -252,7 +255,7 @@ body.embed .hero{min-height:auto;padding-top:54px;padding-bottom:48px;}
     <div class="chart reveal"><div class="flourish-embed flourish-chart" data-src="visualisation/29221253?1257272"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29221253/thumbnail" width="100%" alt="chart visualization" /></noscript></div></div>
     <p class="prose reveal">The affordability pressure facing workers is sharpened by an extremely tight rental market. In 2023, vacancy rates were below 1% in several lower-rent bands, while the overall rental vacancy rate was only 1.41%.</p>
     <p class="prose reveal">The picture is starkly different on the commercial side. New York City's storefront vacancy rate stands at 11%, slightly higher than before the pandemic, but the citywide figure masks sharp local divides. The hardest-hit areas include both Manhattan commercial districts and outer-borough neighborhoods, with New York City showing the widest neighborhood gap among the country's nine largest metropolitan areas, according to a <a href="https://comptroller.nyc.gov/reports/whos-minding-the-storefronts/#_ftn3" target="_blank" rel="noopener">new analysis by the Comptroller's Office</a>. In many neighborhoods, 80% to 90% of vacant storefronts have sat empty for at least nine months.</p>
-    <div class="chart reveal">
+    <div class="chart reveal chart-wide">
       <div style="max-width: 1100px; margin: 0 auto;">
 <svg width="100%" viewBox="0 0 1100 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A tale of two cities: New York City's record-setting prosperity and record-setting hardship are happening at once. The boom: 49.2 billion dollar Wall Street bonus pool, 42.9 million square feet of office leasing, 65 million visitors. The strain: 26 percent of New Yorkers in poverty, 1.8 million on food assistance, 91,000 sleeping in shelters each night, 1 in 4 renters pay over half their income in rent." style="font-family: 'halyard-text', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: block;">
 
