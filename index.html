@@ -77,13 +77,11 @@ a:hover{color:var(--vc-indigo);text-decoration-color:var(--vc-indigo);text-decor
 /* bold closing statement (same size as body) */
 #future .prose:last-of-type{font-weight:700;color:var(--vc-black);}
 
-/* charts */
-.chart{max-width:var(--max-w-chart);margin:48px auto 52px;background:var(--vc-white);border:1px solid var(--vc-rule);border-radius:2px;padding:22px;box-shadow:0 1px 2px rgba(17,20,24,0.04),0 10px 30px rgba(17,20,24,0.05);transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s cubic-bezier(.22,1,.36,1);}
+/* charts — every chart breaks out wider than the text column for a gallery feel.
+   Centered with margins (not transform) so it doesn't fight the .reveal animation's transform. */
+.chart{width:min(1080px,calc(100vw - 48px));max-width:none;margin:48px 0 52px;margin-left:calc(50% - min(1080px,calc(100vw - 48px)) / 2);background:var(--vc-white);border:1px solid var(--vc-rule);border-radius:2px;padding:22px;box-shadow:0 1px 2px rgba(17,20,24,0.04),0 10px 30px rgba(17,20,24,0.05);transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s cubic-bezier(.22,1,.36,1);}
 .chart:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(17,20,24,0.05),0 18px 44px rgba(17,20,24,0.09);}
 .chart .flourish-embed{margin:0;}
-/* wide breakout for the fixed-canvas SVG stat panels, so their text isn't shrunk to fit the text column.
-   Centered with margins (not transform) so it doesn't fight the .reveal animation's transform. */
-.chart-wide{max-width:none;width:min(1080px,calc(100vw - 48px));margin-left:calc(50% - min(1080px,calc(100vw - 48px)) / 2);margin-right:0;}
 
 /* reveal */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
