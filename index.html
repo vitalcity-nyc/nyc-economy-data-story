@@ -25,8 +25,9 @@
 html{scroll-behavior:smooth;}
 body{font-family:var(--font-sans);font-weight:300;background:var(--vc-bg);color:var(--vc-ink);line-height:1.65;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;counter-reset:sec;}
 img{max-width:100%;display:block;}
-a{color:var(--vc-cerulean);text-decoration:underline;text-decoration-color:rgba(33,126,190,0.35);text-decoration-thickness:1px;text-underline-offset:3px;transition:color .2s,text-decoration-color .2s;}
-a:hover{color:var(--vc-indigo);text-decoration-color:var(--vc-indigo);}
+a{color:var(--vc-cerulean);text-decoration:underline;text-decoration-color:rgba(33,126,190,0.35);text-decoration-thickness:1px;text-underline-offset:3px;transition:color .2s,text-decoration-color .2s,text-decoration-thickness .2s;}
+a:hover{color:var(--vc-indigo);text-decoration-color:var(--vc-indigo);text-decoration-thickness:2px;}
+::selection{background:rgba(255,124,83,0.26);}
 
 /* progress bar */
 .progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--vc-orange),var(--vc-magenta));z-index:1000;width:0%;transition:width .1s linear;}
@@ -54,7 +55,7 @@ a:hover{color:var(--vc-indigo);text-decoration-color:var(--vc-indigo);}
 .hero-sub{font-family:var(--font-serif);font-weight:300;font-size:clamp(22px,2.7vw,32px);color:var(--vc-charcoal);letter-spacing:.01em;padding-top:22px;border-top:1px solid var(--vc-rule);display:inline-block;}
 .hero-byline{margin-top:40px;font-family:var(--font-sans);font-size:13px;line-height:1.6;color:var(--vc-charcoal);max-width:60ch;}
 .hero-byline strong{color:var(--vc-ink);font-weight:700;}
-.scroll-cue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;color:var(--vc-charcoal);font-family:var(--font-sans);font-size:10px;letter-spacing:3px;text-transform:uppercase;animation:bob 2s ease-in-out infinite;}
+.scroll-cue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;color:var(--vc-charcoal);font-family:var(--font-sans);font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:0;animation:heroFade .9s ease 1.5s forwards,bob 2s ease-in-out infinite;}
 .scroll-cue svg{width:20px;height:20px;stroke:var(--vc-orange);}
 @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(6px);}}
 
@@ -95,6 +96,23 @@ a:hover{color:var(--vc-indigo);text-decoration-color:var(--vc-indigo);}
 @keyframes motifFade{to{opacity:1;}}
 @keyframes motifDraw{to{stroke-dashoffset:0;}}
 
+/* hero intro choreography — kicker, headline and subtitle assemble in sequence as the line draws */
+.hero-kicker,.hero h1,.hero-sub{opacity:0;animation:heroUp .9s cubic-bezier(.22,1,.36,1) both;}
+.hero-kicker{animation-delay:.15s;}
+.hero h1{animation-delay:.34s;}
+.hero-sub{animation-delay:.6s;}
+@keyframes heroUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes heroFade{to{opacity:1;}}
+
+/* the two static stat panels make a confident scale-in entrance (vs. the hover-lift charts) */
+.chart-wide.reveal{transform:translateY(34px) scale(.985);transform-origin:center top;}
+.chart-wide.reveal.visible{transform:translateY(0) scale(1);}
+
+/* faint index-line echo to bookend the story in the footer */
+.footer-motif{position:absolute;left:0;right:0;bottom:0;width:100%;height:62%;z-index:0;pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 60%);
+  mask-image:linear-gradient(180deg,transparent 0%,#000 60%);}
+
 /* section numeral rises into place just after its title */
 .section-title::before{transform:translateY(18px);opacity:0;transition:transform .8s cubic-bezier(.22,1,.36,1) .12s,opacity .8s ease .12s;}
 .section-title.visible::before{transform:translateY(0);opacity:1;}
@@ -105,11 +123,14 @@ a:hover{color:var(--vc-indigo);text-decoration-color:var(--vc-indigo);}
   .motif-line{animation:none;stroke-dashoffset:0;}
   .section-title::before{transform:none !important;opacity:1 !important;transition:none !important;}
   .hero-motif{transform:none !important;}
+  .hero-kicker,.hero h1,.hero-sub,.scroll-cue{animation:none !important;opacity:1 !important;transform:none !important;}
+  .scroll-cue{transform:translateX(-50%) !important;}
+  .chart-wide.reveal{transform:none !important;}
 }
 
 /* footer */
-footer{padding:60px 32px 80px;text-align:center;background:var(--vc-ink);color:#cfd1d6;}
-.footer-wrap{max-width:var(--max-w);margin:0 auto;}
+footer{position:relative;overflow:hidden;padding:60px 32px 80px;text-align:center;background:var(--vc-ink);color:#cfd1d6;}
+.footer-wrap{position:relative;z-index:1;max-width:var(--max-w);margin:0 auto;}
 .footer-mark{font-family:var(--font-sans);font-weight:700;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--vc-orange);margin-bottom:18px;}
 .footer-credit{font-family:var(--font-sans);font-weight:300;font-size:15px;line-height:1.7;color:#cfd1d6;}
 .footer-credit a{color:#fff;border-bottom-color:rgba(255,255,255,0.4);}
@@ -159,8 +180,8 @@ body.embed .hero{min-height:auto;padding-top:54px;padding-bottom:48px;}
   </svg>
   <div class="hero-inner">
     <div class="hero-kicker">Vital City</div>
-    <h1 class="reveal">The New York City economy</h1>
-    <p class="hero-sub reveal">A data story</p>
+    <h1>The New York City economy</h1>
+    <p class="hero-sub">A data story</p>
   </div>
   <div class="scroll-cue">
     <span>Scroll</span>
@@ -374,6 +395,9 @@ body.embed .hero{min-height:auto;padding-top:54px;padding-bottom:48px;}
 </section>
 
 <footer>
+  <svg class="footer-motif" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+    <path d="M0,150 L80,138 L160,156 L240,132 L320,146 L400,118 L480,134 L560,104 L640,122 L720,92 L800,110 L880,78 L960,96 L1040,66 L1120,84 L1200,58" fill="none" stroke="#ff7c53" stroke-opacity="0.22" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
   <div class="footer-wrap">
     <p class="footer-credit">Ron Miller, adjunct assistant professor of public service at NYU Wagner (Ph.D., Princeton), helped Vital City produce this data story.</p>
   </div>
