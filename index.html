@@ -171,28 +171,48 @@ body.embed .hero{min-height:auto;padding-top:54px;padding-bottom:48px;}
     <p class="prose reveal">Official statistics miss the large share of these workers who are undocumented. Much of the city's street vending, domestic work, off-the-books construction and unlicensed childcare happens off the books.</p>
     <div class="chart reveal">
       <div style="max-width: 1100px; margin: 0 auto;">
-        <svg width="100%" viewBox="0 0 1100 410" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The informal economy in four numbers: 750,000 informal workers, 40 billion dollars in off-the-books output per year, 19,000 vendor applications backlogged, 30 percent of small construction done off-permit." style="font-family: 'halyard-text', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: block;">
-          <rect x="0" y="0" width="1100" height="410" fill="#ffffff"/>
-          <text x="50" y="60" font-size="32" font-weight="700" fill="#111111">The informal economy, in four numbers</text>
-          <text x="50" y="95" font-size="16" font-weight="400" fill="#555555">Order-of-magnitude estimates of the work, output and permitting that happen off the books</text>
-          <rect x="50" y="125" width="64" height="3" fill="#d7e814"/>
-          <line x1="125" y1="126" x2="1050" y2="126" stroke="#e0e0e0" stroke-width="1"/>
-          <line x1="290" y1="185" x2="290" y2="345" stroke="#e0e0e0" stroke-width="1"/>
-          <line x1="580" y1="185" x2="580" y2="345" stroke="#e0e0e0" stroke-width="1"/>
-          <line x1="850" y1="185" x2="850" y2="345" stroke="#e0e0e0" stroke-width="1"/>
-          <text x="170" y="262" font-size="80" font-weight="700" fill="#ff7c53" text-anchor="middle">~750K</text>
-          <text x="170" y="310" font-size="16" font-weight="700" fill="#111111" text-anchor="middle">Informal workers</text>
-          <text x="170" y="335" font-size="14" font-weight="400" fill="#777777" text-anchor="middle">in New York City</text>
-          <text x="435" y="262" font-size="80" font-weight="700" fill="#ff7c53" text-anchor="middle">~$40B</text>
-          <text x="435" y="310" font-size="16" font-weight="700" fill="#111111" text-anchor="middle">Off-the-books output</text>
-          <text x="435" y="335" font-size="14" font-weight="400" fill="#777777" text-anchor="middle">per year</text>
-          <text x="715" y="262" font-size="80" font-weight="700" fill="#ff7c53" text-anchor="middle">~19K</text>
-          <text x="715" y="310" font-size="16" font-weight="700" fill="#111111" text-anchor="middle">Vendor applications</text>
-          <text x="715" y="335" font-size="14" font-weight="400" fill="#777777" text-anchor="middle">backlogged</text>
-          <text x="955" y="262" font-size="80" font-weight="700" fill="#ff7c53" text-anchor="middle">~30%</text>
-          <text x="955" y="310" font-size="16" font-weight="700" fill="#111111" text-anchor="middle">Small construction</text>
-          <text x="955" y="335" font-size="14" font-weight="400" fill="#777777" text-anchor="middle">done off-permit</text>
-        </svg>
+<svg width="100%" viewBox="0 0 1100 410" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The informal economy in four numbers: 750,000 informal workers, 40 billion dollars in off-the-books output per year, 19,000 vendor applications backlogged, 30 percent of small construction done off-permit." style="font-family: 'halyard-text', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: block;">
+
+  <rect x="0" y="0" width="1100" height="410" fill="#FFFFFF"/>
+
+  <!-- Title -->
+  <text x="50" y="60" font-size="32" font-weight="700" fill="#111111">The informal economy, in four numbers</text>
+
+  <!-- Subtitle -->
+  <text x="50" y="95" font-size="16" font-weight="400" fill="#555555">Order-of-magnitude estimates of the work, output and permitting that happen off the books</text>
+
+  <!-- Chartreuse accent rule -->
+  <rect x="50" y="125" width="64" height="3" fill="#D7E814"/>
+
+  <!-- Top divider line -->
+  <line x1="125" y1="126" x2="1050" y2="126" stroke="#E0E0E0" stroke-width="1"/>
+
+  <!-- Vertical dividers between stats -->
+  <line x1="290" y1="185" x2="290" y2="345" stroke="#E0E0E0" stroke-width="1"/>
+  <line x1="580" y1="185" x2="580" y2="345" stroke="#E0E0E0" stroke-width="1"/>
+  <line x1="850" y1="185" x2="850" y2="345" stroke="#E0E0E0" stroke-width="1"/>
+
+  <!-- ===== STAT 1: ~750K Informal workers ===== -->
+  <text x="155" y="260" font-size="84" font-weight="700" fill="#FF7C53" text-anchor="middle">~750K</text>
+  <text x="155" y="310" font-size="16" font-weight="700" fill="#111111" text-anchor="middle">Informal workers</text>
+  <text x="155" y="335" font-size="14" font-weight="400" fill="#777777" text-anchor="middle">in New York City</text>
+
+  <!-- ===== STAT 2: ~$40B Output ===== -->
+  <text x="435" y="260" font-size="84" font-weight="700" fill="#FF7C53" text-anchor="middle">~$40B</text>
+  <text x="435" y="310" font-size="16" font-weight="700" fill="#111111" text-anchor="middle">Off-the-books output</text>
+  <text x="435" y="335" font-size="14" font-weight="400" fill="#777777" text-anchor="middle">per year</text>
+
+  <!-- ===== STAT 3: ~19K Vendor applications ===== -->
+  <text x="715" y="260" font-size="84" font-weight="700" fill="#FF7C53" text-anchor="middle">~19K</text>
+  <text x="715" y="310" font-size="16" font-weight="700" fill="#111111" text-anchor="middle">Vendor applications</text>
+  <text x="715" y="335" font-size="14" font-weight="400" fill="#777777" text-anchor="middle">backlogged</text>
+
+  <!-- ===== STAT 4: ~30% Small construction ===== -->
+  <text x="970" y="260" font-size="84" font-weight="700" fill="#FF7C53" text-anchor="middle">~30%</text>
+  <text x="970" y="310" font-size="16" font-weight="700" fill="#111111" text-anchor="middle">Small construction</text>
+  <text x="970" y="335" font-size="14" font-weight="400" fill="#777777" text-anchor="middle">done off-permit</text>
+
+</svg>
       </div>
     </div>
     <p class="prose reveal">The most reliable sources estimate that <a href="https://cmsny.org/publications/state-and-local-data-on-undocumented-immigrants/" target="_blank" rel="noopener">between roughly 412,000 and 535,000 city residents</a> are undocumented. Most pay taxes in some form, and many pay income and payroll taxes through wage withholding — an <a href="https://itep.org/undocumented-immigrants-taxes-2024/" target="_blank" rel="noopener">estimated $3.1 billion in state and local taxes in 2022</a>. But they are not eligible for benefits such as Social Security, federal food assistance or Medicare.</p>
@@ -234,33 +254,69 @@ body.embed .hero{min-height:auto;padding-top:54px;padding-bottom:48px;}
     <p class="prose reveal">The picture is starkly different on the commercial side. New York City's storefront vacancy rate stands at 11%, slightly higher than before the pandemic, but the citywide figure masks sharp local divides. The hardest-hit areas include both Manhattan commercial districts and outer-borough neighborhoods, with New York City showing the widest neighborhood gap among the country's nine largest metropolitan areas, according to a <a href="https://comptroller.nyc.gov/reports/whos-minding-the-storefronts/#_ftn3" target="_blank" rel="noopener">new analysis by the Comptroller's Office</a>. In many neighborhoods, 80% to 90% of vacant storefronts have sat empty for at least nine months.</p>
     <div class="chart reveal">
       <div style="max-width: 1100px; margin: 0 auto;">
-        <svg width="100%" viewBox="0 0 1100 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A tale of two cities: New York City's record-setting prosperity and record-setting hardship are happening at once. The boom: 49.2 billion dollar Wall Street bonus pool, 42.9 million square feet of office leasing, 65 million visitors. The strain: 26 percent of New Yorkers in poverty, 1.8 million on food assistance, 91,000 sleeping in shelters each night, 1 in 4 renters pay over half their income in rent." style="font-family: 'halyard-text', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: block;">
-          <rect x="0" y="0" width="1100" height="760" fill="#ffffff"/>
-          <text x="50" y="60" font-size="30" font-weight="700" fill="#111111">A tale of two cities: boom and strain, 2024&#8211;2025</text>
-          <rect x="50" y="78" width="64" height="3" fill="#d7e814"/>
-          <text x="50" y="115" font-size="16" font-weight="400" fill="#555555">New York City's record-setting prosperity and record-setting hardship are happening at once.</text>
-          <text x="50" y="180" font-size="13" font-weight="700" fill="#ff7c53" letter-spacing="3">THE BOOM</text>
-          <text x="580" y="180" font-size="13" font-weight="700" fill="#e7466d" letter-spacing="3">THE STRAIN</text>
-          <line x1="540" y1="160" x2="540" y2="710" stroke="#e0e0e0" stroke-width="1"/>
-          <text x="50" y="265" font-size="62" font-weight="700" fill="#ff7c53">$49.2B</text>
-          <text x="50" y="298" font-size="18" font-weight="500" fill="#111111">Wall Street bonus pool</text>
-          <text x="50" y="322" font-size="15" font-weight="400" fill="#888888">A record high</text>
-          <text x="50" y="415" font-size="62" font-weight="700" fill="#ff7c53">42.9M</text>
-          <text x="50" y="448" font-size="18" font-weight="500" fill="#111111">Square feet of office leasing</text>
-          <text x="50" y="472" font-size="15" font-weight="400" fill="#888888">Strongest year since 2014</text>
-          <text x="50" y="565" font-size="62" font-weight="700" fill="#ff7c53">65M</text>
-          <text x="50" y="598" font-size="18" font-weight="500" fill="#111111">Visitors</text>
-          <text x="50" y="622" font-size="15" font-weight="400" fill="#888888">In 2025</text>
-          <text x="580" y="255" font-size="62" font-weight="700" fill="#e7466d">26%</text>
-          <text x="580" y="288" font-size="18" font-weight="500" fill="#111111">Of residents in poverty</text>
-          <text x="580" y="312" font-size="15" font-weight="400" fill="#888888">A record</text>
-          <text x="580" y="385" font-size="62" font-weight="700" fill="#e7466d">1.8M</text>
-          <text x="580" y="418" font-size="18" font-weight="500" fill="#111111">On food assistance</text>
-          <text x="580" y="515" font-size="62" font-weight="700" fill="#e7466d">91,000</text>
-          <text x="580" y="548" font-size="18" font-weight="500" fill="#111111">Sleeping in shelters each night</text>
-          <text x="580" y="645" font-size="62" font-weight="700" fill="#e7466d">1 in 4</text>
-          <text x="580" y="678" font-size="18" font-weight="500" fill="#111111">Renters pay over half their income in rent</text>
-        </svg>
+<svg width="100%" viewBox="0 0 1100 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A tale of two cities: New York City's record-setting prosperity and record-setting hardship are happening at once. The boom: 49.2 billion dollar Wall Street bonus pool, 42.9 million square feet of office leasing, 65 million visitors. The strain: 26 percent of New Yorkers in poverty, 1.8 million on food assistance, 91,000 sleeping in shelters each night, 1 in 4 renters pay over half their income in rent." style="font-family: 'halyard-text', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: block;">
+
+  <rect x="0" y="0" width="1100" height="760" fill="#FFFFFF"/>
+
+  <!-- Title -->
+  <text x="50" y="60" font-size="30" font-weight="700" fill="#111111">A tale of two cities: boom and strain, 2024–2025</text>
+
+  <!-- Chartreuse accent rule -->
+  <rect x="50" y="78" width="64" height="3" fill="#D7E814"/>
+
+  <!-- Subtitle -->
+  <text x="50" y="115" font-size="16" font-weight="400" fill="#555555">New York City's record-setting prosperity and record-setting hardship are happening at once.</text>
+
+  <!-- Column headers -->
+  <text x="50" y="180" font-size="13" font-weight="700" fill="#FF7C53" letter-spacing="3">THE BOOM</text>
+  <text x="580" y="180" font-size="13" font-weight="700" fill="#E7466D" letter-spacing="3">THE STRAIN</text>
+
+  <!-- Vertical divider -->
+  <line x1="540" y1="160" x2="540" y2="710" stroke="#E0E0E0" stroke-width="1"/>
+
+  <!-- ============================================ -->
+  <!-- LEFT COLUMN: THE BOOM (Safety Orange) -->
+  <!-- ============================================ -->
+
+  <!-- Boom stat 1: $49.2B -->
+  <text x="50" y="265" font-size="62" font-weight="700" fill="#FF7C53">$49.2B</text>
+  <text x="50" y="298" font-size="18" font-weight="500" fill="#111111">Wall Street bonus pool</text>
+  <text x="50" y="322" font-size="15" font-weight="400" fill="#888888">A record high</text>
+
+  <!-- Boom stat 2: 42.9M -->
+  <text x="50" y="415" font-size="62" font-weight="700" fill="#FF7C53">42.9M</text>
+  <text x="50" y="448" font-size="18" font-weight="500" fill="#111111">Square feet of office leasing</text>
+  <text x="50" y="472" font-size="15" font-weight="400" fill="#888888">The best year since 2014</text>
+
+  <!-- Boom stat 3: 65M -->
+  <text x="50" y="565" font-size="62" font-weight="700" fill="#FF7C53">65M</text>
+  <text x="50" y="598" font-size="18" font-weight="500" fill="#111111">Visitors to the city</text>
+  <text x="50" y="622" font-size="15" font-weight="400" fill="#888888">Near pre-pandemic peak</text>
+
+  <!-- ============================================ -->
+  <!-- RIGHT COLUMN: THE STRAIN (Magenta) -->
+  <!-- ============================================ -->
+
+  <!-- Strain stat 1: 26% -->
+  <text x="580" y="265" font-size="62" font-weight="700" fill="#E7466D">26%</text>
+  <text x="580" y="298" font-size="18" font-weight="500" fill="#111111">New Yorkers in poverty</text>
+  <text x="580" y="322" font-size="15" font-weight="400" fill="#888888">A record share</text>
+
+  <!-- Strain stat 2: 1.8M -->
+  <text x="580" y="385" font-size="62" font-weight="700" fill="#E7466D">1.8M</text>
+  <text x="580" y="418" font-size="18" font-weight="500" fill="#111111">On food assistance</text>
+  <text x="580" y="442" font-size="15" font-weight="400" fill="#888888">About 1 in 5 residents</text>
+
+  <!-- Strain stat 3: 91K -->
+  <text x="580" y="505" font-size="62" font-weight="700" fill="#E7466D">91K</text>
+  <text x="580" y="538" font-size="18" font-weight="500" fill="#111111">Sleeping in shelters each night</text>
+  <text x="580" y="562" font-size="15" font-weight="400" fill="#888888">A historic high</text>
+
+  <!-- Strain stat 4: 1 in 4 -->
+  <text x="580" y="625" font-size="62" font-weight="700" fill="#E7466D">1 in 4</text>
+  <text x="580" y="658" font-size="18" font-weight="500" fill="#111111">Renters pay over half their income in rent</text>
+
+</svg>
       </div>
     </div>
     <p class="prose reveal">None of this is accidental; it is an outgrowth of how New York — and much of the U.S. economy — is now built. Over 70 years the city traded a deep, middle-wage manufacturing base for a barbell: high-wage finance and professional work at one end, low-paid care and food work at the other, a thinning middle between.</p>
